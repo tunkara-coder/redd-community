@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en" data-language="english">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REDD+ Mangrove Community Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="app-body">
+    <div id="app" class="app-container active">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="app-logo">
+                        <i class="fas fa-tree" style="color: #2E8B57;"></i>
+                        <div class="logo-text">
+                            <span class="logo-title">REDD+ Mangrove Community</span>
+                            <span class="logo-subtitle" id="portalSubtitle">Transparency Portal</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Main Navigation -->
+                <nav class="main-nav">
+                    <button class="nav-item active" data-page="dashboard">
+                        <div class="nav-icon">
+                            <i class="fas fa-chart-pie" style="color: #FF6B6B;"></i>
+                        </div>
+                        <span class="nav-text" id="navDashboard">Dashboard</span>
+                    </button>
+                    <button class="nav-item" data-page="finances">
+                        <div class="nav-icon">
+                            <i class="fas fa-money-bill-wave" style="color: #4ECDC4;"></i>
+                        </div>
+                        <span class="nav-text" id="navFinances">Finances</span>
+                    </button>
+                    <button class="nav-item" data-page="community">
+                        <div class="nav-icon">
+                            <i class="fas fa-users" style="color: #45B7D1;"></i>
+                        </div>
+                        <span class="nav-text" id="navCommunity">Community</span>
+                    </button>
+                    <button class="nav-item" data-page="council">
+                        <div class="nav-icon">
+                            <i class="fas fa-landmark" style="color: #96CEB4;"></i>
+                        </div>
+                        <span class="nav-text" id="navCouncil">BSM Council</span>
+                    </button>
+                </nav>
+
+                <div class="header-right">
+                    <div class="user-controls">
+                        <div class="language-control">
+                            <i class="fas fa-language" style="color: #FFA500;"></i>
+                            <select id="appLanguage" class="language-select">
+                                <option value="english">English</option>
+                                <option value="mandinka">Mandinka</option>
+                                <option value="wolof">Wolof</option>
+                                <option value="fulla">Fula</option>
+                            </select>
+                        </div>
+                        <button class="logout-btn" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span id="logoutText">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <section id="dashboard" class="content-page active">
+                <div class="page-header">
+                    <h1 id="dashboardTitle">
+                        <i class="fas fa-chart-pie" style="color: #FF6B6B;"></i>
+                        Community Dashboard
+                    </h1>
+                    <p id="dashboardSubtitle">Overview of Mangrove Restoration Project activities and community benefits</p>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-card primary">
+                        <div class="stat-icon" style="background: rgba(46, 139, 87, 0.1);">
+                            <i class="fas fa-tree" style="color: #2E8B57;"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="treesPlanted">Mangroves Restored</h3>
+                            <div class="stat-number">450 ha</div>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                25% increase
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card secondary">
+                        <div class="stat-icon" style="background: rgba(78, 205, 196, 0.1);">
+                            <i class="fas fa-hand-holding-usd" style="color: #4ECDC4;"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="benefitsDistributed">Benefits Distributed</h3>
+                            <div class="stat-number">$284,750</div>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                12% this quarter
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card success">
+                        <div class="stat-icon" style="background: rgba(69, 183, 209, 0.1);">
+                            <i class="fas fa-user-friends" style="color: #45B7D1;"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="participatingHouseholds">Participating Families</h3>
+                            <div class="stat-number">320</div>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-plus"></i>
+                                18 new families
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card warning">
+                        <div class="stat-icon" style="background: rgba(255, 107, 107, 0.1);">
+                            <i class="fas fa-shield-alt" style="color: #FF6B6B;"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="forestProtected">Carbon Sequestered</h3>
+                            <div class="stat-number">12,500 tCO2e</div>
+                            <div class="stat-trend positive">
+                                <i class="fas fa-check"></i>
+                                98% success rate
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <div class="chart-card">
+                            <h3 id="benefitsChartTitle">Benefits Distribution</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="benefitsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-card">
+                            <h3 id="progressChartTitle">Mangrove Restoration Progress</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="progressChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activities Section -->
+                <div class="content-section">
+                    <div class="activity-feed">
+                        <h3 id="recentActivities">
+                            <i class="fas fa-bell" style="color: #FFA500;"></i>
+                            Recent Activities
+                        </h3>
+                        <div class="activity-list">
+                            <div class="activity-item new">
+                                <div class="activity-icon">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p id="activity1">Mangrove planting completed in Sankandi - 50 hectares restored</p>
+                                    <span class="activity-time">3 days ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-money-check"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p id="activity2">Quarterly benefit payments distributed to 320 households</p>
+                                    <span class="activity-time">1 week ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-fish"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p id="activity3">Oyster collection training completed for 45 women</p>
+                                    <span class="activity-time">2 weeks ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upcoming-events">
+                        <h3 id="upcomingEvents">
+                            <i class="fas fa-calendar-alt" style="color: #FF6B6B;"></i>
+                            Upcoming Events
+                        </h3>
+                        <div class="event-list">
+                            <div class="event-item highlight">
+                                <div class="event-date">
+                                    <span class="event-day">18</span>
+                                    <span class="event-month">MAR</span>
+                                </div>
+                                <div class="event-details">
+                                    <h4 id="event1">Community Meeting</h4>
+                                    <p>Project review and benefit distribution planning</p>
+                                    <span class="event-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Sankandi Community Center
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="event-day">25</span>
+                                    <span class="event-month">MAR</span>
+                                </div>
+                                <div class="event-details">
+                                    <h4 id="event2">Monitoring Team Visit</h4>
+                                    <p>Mangrove conservation progress assessment</p>
+                                    <span class="event-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Restored Mangrove Area
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Finances Page -->
+            <section id="finances" class="content-page">
+                <div class="page-header">
+                    <h1 id="financesTitle">
+                        <i class="fas fa-money-bill-wave" style="color: #4ECDC4;"></i>
+                        Financial Transparency
+                    </h1>
+                    <p id="financesSubtitle">Complete overview of project finances and benefit distribution</p>
+                </div>
+
+                <!-- Financial Overview -->
+                <div class="finance-overview">
+                    <div class="finance-summary">
+                        <div class="finance-card large">
+                            <div class="finance-header">
+                                <h3 id="totalBenefits">Total Benefits Distributed</h3>
+                                <div class="amount-main">$284,750</div>
+                            </div>
+                            <div class="finance-breakdown">
+                                <div class="breakdown-item">
+                                    <span class="breakdown-label" id="breakdown1">To households:</span>
+                                    <span class="breakdown-value">$199,325</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-label" id="breakdown2">Community projects:</span>
+                                    <span class="breakdown-value">$85,425</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="finance-card">
+                            <div class="finance-header">
+                                <h3 id="thisQuarter">This Quarter</h3>
+                                <div class="amount">$68,500</div>
+                            </div>
+                            <div class="finance-breakdown">
+                                <div class="breakdown-item">
+                                    <span class="breakdown-label" id="breakdown3">Direct benefits:</span>
+                                    <span class="breakdown-value">$47,950</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span class="breakdown-label" id="breakdown4">Project funds:</span>
+                                    <span class="breakdown-value">$20,550</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Finance Chart -->
+                    <div class="finance-chart">
+                        <div class="chart-card">
+                            <h3 id="financeTrendTitle">Financial Trends</h3>
+                            <div class="chart-wrapper">
+                                <canvas id="financeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue Sources Section -->
+                <div class="revenue-sources">
+                    <h3 id="revenueTitle">
+                        <i class="fas fa-chart-pie" style="color: #FF6B6B;"></i>
+                        Where Our Money Comes From
+                    </h3>
+                    <div class="revenue-content">
+                        <div class="revenue-chart">
+                            <div class="chart-wrapper">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="revenue-breakdown">
+                            <div class="revenue-item">
+                                <div class="revenue-icon" style="background: rgba(46, 139, 87, 0.1);">
+                                    <i class="fas fa-leaf" style="color: #2E8B57;"></i>
+                                </div>
+                                <div class="revenue-info">
+                                    <h4>Carbon Credits</h4>
+                                    <div class="revenue-amount">65%</div>
+                                    <p>Revenue from carbon sequestration</p>
+                                </div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-icon" style="background: rgba(255, 165, 0, 0.1);">
+                                    <i class="fas fa-hand-holding-heart" style="color: #FFA500;"></i>
+                                </div>
+                                <div class="revenue-info">
+                                    <h4>Donations</h4>
+                                    <div class="revenue-amount">20%</div>
+                                    <p>Support from international partners</p>
+                                </div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-icon" style="background: rgba(74, 144, 226, 0.1);">
+                                    <i class="fas fa-graduation-cap" style="color: #4A90E2;"></i>
+                                </div>
+                                <div class="revenue-info">
+                                    <h4>Grants</h4>
+                                    <div class="revenue-amount">15%</div>
+                                    <p>Government and NGO grants</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment History -->
+                <div class="payment-section">
+                    <div class="section-header">
+                        <h3 id="paymentHistory">
+                            <i class="fas fa-history" style="color: #45B7D1;"></i>
+                            Payment History
+                        </h3>
+                    </div>
+                    <div class="payment-table">
+                        <div class="table-header">
+                            <span id="dateHeader">Date</span>
+                            <span id="typeHeader">Payment Type</span>
+                            <span id="amountHeader">Amount</span>
+                            <span id="statusHeader">Status</span>
+                        </div>
+                        <div class="table-row">
+                            <span class="date">15 Feb 2024</span>
+                            <span class="type" id="payment1">Quarterly Benefits</span>
+                            <span class="amount">$68,500</span>
+                            <span class="status completed">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="statusCompleted">Completed</span>
+                            </span>
+                        </div>
+                        <div class="table-row">
+                            <span class="date">15 Nov 2023</span>
+                            <span class="type" id="payment2">Quarterly Benefits</span>
+                            <span class="amount">$62,800</span>
+                            <span class="status completed">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="statusCompleted2">Completed</span>
+                            </span>
+                        </div>
+                        <div class="table-row">
+                            <span class="date">15 Aug 2023</span>
+                            <span class="type" id="payment3">Quarterly Benefits</span>
+                            <span class="amount">$58,450</span>
+                            <span class="status completed">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="statusCompleted3">Completed</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community Page -->
+            <section id="community" class="content-page">
+                <div class="page-header">
+                    <h1 id="communityTitle">
+                        <i class="fas fa-users" style="color: #45B7D1;"></i>
+                        Our Community
+                    </h1>
+                    <p id="communitySubtitle">Community members, impact data, and project participation</p>
+                </div>
+
+                <!-- Community Stats -->
+                <div class="community-stats">
+                    <div class="community-stat-card">
+                        <div class="stat-visual">
+                            <i class="fas fa-users" style="color: #45B7D1;"></i>
+                            <div class="stat-number">1,280</div>
+                        </div>
+                        <div class="stat-label" id="totalMembers">Total Members</div>
+                    </div>
+                    <div class="community-stat-card">
+                        <div class="stat-visual">
+                            <i class="fas fa-home" style="color: #FF6B6B;"></i>
+                            <div class="stat-number">320</div>
+                        </div>
+                        <div class="stat-label" id="activeHouseholds">Active Households</div>
+                    </div>
+                    <div class="community-stat-card">
+                        <div class="stat-visual">
+                            <i class="fas fa-chart-line" style="color: #4ECDC4;"></i>
+                            <div class="stat-number">88%</div>
+                        </div>
+                        <div class="stat-label" id="participationRate">Participation Rate</div>
+                    </div>
+                </div>
+
+                <!-- Environmental & Social Impact -->
+                <div class="impact-section">
+                    <h3 id="impactTitle">
+                        <i class="fas fa-chart-bar" style="color: #2E8B57;"></i>
+                        Environmental & Social Impact
+                    </h3>
+                    <div class="impact-content">
+                        <div class="impact-charts">
+                            <div class="chart-container">
+                                <div class="chart-card">
+                                    <h4>CO2e Emissions Reduced</h4>
+                                    <div class="chart-wrapper">
+                                        <canvas id="co2Chart"></canvas>
+                                    </div>
+                                    <div class="impact-stats">
+                                        <div class="impact-stat">
+                                            <i class="fas fa-cloud" style="color: #2E8B57;"></i>
+                                            <span>12,500 tCO2e sequestered</span>
+                                        </div>
+                                        <div class="impact-stat">
+                                            <i class="fas fa-tree" style="color: #2E8B57;"></i>
+                                            <span>Equivalent to 2,500 cars off road</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <div class="chart-card">
+                                    <h4>Livelihood Improvements</h4>
+                                    <div class="chart-wrapper">
+                                        <canvas id="livelihoodChart"></canvas>
+                                    </div>
+                                    <div class="impact-stats">
+                                        <div class="impact-stat">
+                                            <i class="fas fa-fish" style="color: #FF7F50;"></i>
+                                            <span>45% increase in fish catch</span>
+                                        </div>
+                                        <div class="impact-stat">
+                                            <i class="fas fa-oyster" style="color: #FF7F50;"></i>
+                                            <span>60% more oyster collection</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Projects Voting -->
+                <div class="voting-section">
+                    <h3 id="votingTitle">
+                        <i class="fas fa-vote-yea" style="color: #FFA500;"></i>
+                        Community Action Plan Voting
+                    </h3>
+                    <p id="votingDescription">Vote for the projects you want the community to prioritize in the next phase</p>
+                    
+                    <div class="voting-options">
+                        <div class="voting-option">
+                            <div class="project-icon" style="background: rgba(74, 144, 226, 0.1);">
+                                <i class="fas fa-tint" style="color: #4A90E2;"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4 id="project1">Clean Water Initiative</h4>
+                                <p id="project1Desc">Installation of water wells in 3 villages</p>
+                            </div>
+                            <button class="vote-btn" data-project="water">Vote</button>
+                        </div>
+                        
+                        <div class="voting-option">
+                            <div class="project-icon" style="background: rgba(255, 165, 0, 0.1);">
+                                <i class="fas fa-graduation-cap" style="color: #FFA500;"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4 id="project2">Education Support</h4>
+                                <p id="project2Desc">Scholarships for 25 students</p>
+                            </div>
+                            <button class="vote-btn" data-project="education">Vote</button>
+                        </div>
+                        
+                        <div class="voting-option">
+                            <div class="project-icon" style="background: rgba(255, 107, 107, 0.1);">
+                                <i class="fas fa-clinic-medical" style="color: #FF6B6B;"></i>
+                            </div>
+                            <div class="project-info">
+                                <h4 id="project3">Health Center Upgrade</h4>
+                                <p id="project3Desc">Medical equipment and facility improvements</p>
+                            </div>
+                            <button class="vote-btn" data-project="health">Vote</button>
+                        </div>
+                    </div>
+
+                    <div class="voting-results">
+                        <h4>Current Voting Results</h4>
+                        <div class="results-container">
+                            <div class="result-item">
+                                <span class="project-name">Clean Water</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill water-votes" style="width: 45%"></div>
+                                </div>
+                                <span class="vote-count">45%</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="project-name">Education</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill education-votes" style="width: 35%"></div>
+                                </div>
+                                <span class="vote-count">35%</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="project-name">Health</span>
+                                <div class="progress-bar">
+                                    <div class="progress-fill health-votes" style="width: 20%"></div>
+                                </div>
+                                <span class="vote-count">20%</span>
+                            </div>
+                        </div>
+                        <div class="total-votes">
+                            <i class="fas fa-users"></i>
+                            <span>Total Votes: 285</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Projects -->
+                <div class="projects-section">
+                    <h3 id="communityProjects">
+                        <i class="fas fa-project-diagram" style="color: #96CEB4;"></i>
+                        Community Projects
+                    </h3>
+                    <div class="projects-grid">
+                        <div class="project-card in-progress">
+                            <div class="project-icon" style="background: rgba(74, 144, 226, 0.1);">
+                                <i class="fas fa-tint" style="color: #4A90E2;"></i>
+                            </div>
+                            <div class="project-content">
+                                <h4 id="project1">Clean Water Initiative</h4>
+                                <p id="project1Desc">Installation of water wells in 3 villages to provide clean drinking water</p>
+                                <div class="project-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 65%"></div>
+                                    </div>
+                                    <span class="progress-text">65% Complete</span>
+                                </div>
+                                <span class="project-status">In Progress</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card completed">
+                            <div class="project-icon" style="background: rgba(255, 165, 0, 0.1);">
+                                <i class="fas fa-graduation-cap" style="color: #FFA500;"></i>
+                            </div>
+                            <div class="project-content">
+                                <h4 id="project2">Education Support</h4>
+                                <p id="project2Desc">Scholarships for 25 students and school supplies distribution</p>
+                                <div class="project-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%"></div>
+                                    </div>
+                                    <span class="progress-text">100% Complete</span>
+                                </div>
+                                <span class="project-status">Completed</span>
+                            </div>
+                        </div>
+
+                        <div class="project-card planned">
+                            <div class="project-icon" style="background: rgba(255, 107, 107, 0.1);">
+                                <i class="fas fa-clinic-medical" style="color: #FF6B6B;"></i>
+                            </div>
+                            <div class="project-content">
+                                <h4 id="project3">Health Center Upgrade</h4>
+                                <p id="project3Desc">Medical equipment and facility improvements for better healthcare</p>
+                                <div class="project-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 15%"></div>
+                                    </div>
+                                    <span class="progress-text">Planning Phase</span>
+                                </div>
+                                <span class="project-status">Planned</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BSM Council Page -->
+            <section id="council" class="content-page">
+                <div class="page-header">
+                    <h1 id="councilTitle">
+                        <i class="fas fa-landmark" style="color: #96CEB4;"></i>
+                        BSM Council
+                    </h1>
+                    <p id="councilSubtitle">Benefit Sharing Mechanism Council Members and Activities</p>
+                </div>
+
+                <!-- Council Members -->
+                <div class="council-section">
+                    <h3 id="councilMembers">
+                        <i class="fas fa-user-friends" style="color: #45B7D1;"></i>
+                        Council Members
+                    </h3>
+                    <div class="members-grid">
+                        <div class="member-card">
+                            <div class="member-avatar" style="background: rgba(46, 139, 87, 0.1);">
+                                <i class="fas fa-user" style="color: #2E8B57;"></i>
+                            </div>
+                            <div class="member-info">
+                                <h4>Alieu Jallow</h4>
+                                <p class="member-role" id="position1">Chairperson</p>
+                                <div class="member-contact">
+                                    <i class="fas fa-phone"></i>
+                                    +220 123 4567
+                                </div>
+                                <div class="member-contact">
+                                    <i class="fas fa-envelope"></i>
+                                    alieu.jallow@community.com
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-avatar" style="background: rgba(255, 165, 0, 0.1);">
+                                <i class="fas fa-user" style="color: #FFA500;"></i>
+                            </div>
+                            <div class="member-info">
+                                <h4>Fatou Sowe</h4>
+                                <p class="member-role" id="position2">Secretary</p>
+                                <div class="member-contact">
+                                    <i class="fas fa-phone"></i>
+                                    +220 234 5678
+                                </div>
+                                <div class="member-contact">
+                                    <i class="fas fa-envelope"></i>
+                                    fatou.sowe@community.com
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="member-card">
+                            <div class="member-avatar" style="background: rgba(74, 144, 226, 0.1);">
+                                <i class="fas fa-user" style="color: #4A90E2;"></i>
+                            </div>
+                            <div class="member-info">
+                                <h4>Lamin Ceesay</h4>
+                                <p class="member-role" id="position3">Treasurer</p>
+                                <div class="member-contact">
+                                    <i class="fas fa-phone"></i>
+                                    +220 345 6789
+                                </div>
+                                <div class="member-contact">
+                                    <i class="fas fa-envelope"></i>
+                                    lamin.ceesay@community.com
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grievance System -->
+                <div class="grievance-section">
+                    <h3 id="grievanceTitle">
+                        <i class="fas fa-comments" style="color: #FF6B6B;"></i>
+                        Submit a Grievance
+                    </h3>
+                    <p id="grievanceDescription">If you have any concerns or issues, please let us know through the following methods:</p>
+                    
+                    <div class="grievance-options">
+                        <div class="grievance-form">
+                            <textarea id="grievanceText" placeholder="Describe your grievance or concern..."></textarea>
+                            <button id="submitGrievance" class="grievance-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                Submit Grievance
+                            </button>
+                        </div>
+                        
+                        <div class="whatsapp-option">
+                            <a href="https://wa.me/2201234567" class="whatsapp-btn" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                                Send Voice Message via WhatsApp
+                            </a>
+                            <p>Click to send a voice message directly to the council</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Grievances -->
+                <div class="grievances-list">
+                    <h3 id="recentGrievancesTitle">
+                        <i class="fas fa-list" style="color: #4ECDC4;"></i>
+                        Recent Grievances & Status
+                    </h3>
+                    <div class="grievance-items">
+                        <div class="grievance-item">
+                            <div class="grievance-content">
+                                <p>Water well in Sankandi village is not functioning properly and needs repair</p>
+                                <span class="grievance-date">Submitted on: 15 Mar 2024 by Alieu J.</span>
+                            </div>
+                            <div class="grievance-status in-progress">
+                                <i class="fas fa-tools"></i>
+                                In Progress
+                            </div>
+                        </div>
+                        <div class="grievance-item">
+                            <div class="grievance-content">
+                                <p>Request for additional scholarship support for orphan children in the community</p>
+                                <span class="grievance-date">Submitted on: 10 Mar 2024 by Fatou S.</span>
+                            </div>
+                            <div class="grievance-status resolved">
+                                <i class="fas fa-check-circle"></i>
+                                Resolved
+                            </div>
+                        </div>
+                        <div class="grievance-item">
+                            <div class="grievance-content">
+                                <p>Concern about mangrove monitoring in the eastern section of the project area</p>
+                                <span class="grievance-date">Submitted on: 5 Mar 2024 by Lamin C.</span>
+                            </div>
+                            <div class="grievance-status pending">
+                                <i class="fas fa-clock"></i>
+                                Under Review
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Downloadable Documents -->
+                <div class="documents-section">
+                    <h3 id="documentsTitle">
+                        <i class="fas fa-download" style="color: #2E8B57;"></i>
+                        Project Documents
+                    </h3>
+                    <p id="documentsDescription">Download important project documents in your preferred language:</p>
+                    
+                    <div class="documents-grid">
+                        <div class="document-card">
+                            <div class="document-icon">
+                                <i class="fas fa-file-alt" style="color: #FF6B6B;"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Meeting Minutes</h4>
+                                <p>Latest council meeting discussions and decisions</p>
+                                <button class="download-btn" data-doc="minutes">
+                                    <i class="fas fa-download"></i>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="document-card">
+                            <div class="document-icon">
+                                <i class="fas fa-map" style="color: #4A90E2;"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Community Action Plan</h4>
+                                <p>Detailed plan for community development projects</p>
+                                <button class="download-btn" data-doc="actionPlan">
+                                    <i class="fas fa-download"></i>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="document-card">
+                            <div class="document-icon">
+                                <i class="fas fa-chart-line" style="color: #4ECDC4;"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Project Results Summary</h4>
+                                <p>Quarterly progress and achievement report</p>
+                                <button class="download-btn" data-doc="results">
+                                    <i class="fas fa-download"></i>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="document-card">
+                            <div class="document-icon">
+                                <i class="fas fa-money-bill-wave" style="color: #96CEB4;"></i>
+                            </div>
+                            <div class="document-info">
+                                <h4>Financial Summary</h4>
+                                <p>Detailed financial report and benefit distribution</p>
+                                <button class="download-btn" data-doc="financial">
+                                    <i class="fas fa-download"></i>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Council Responsibilities -->
+                <div class="responsibilities-section">
+                    <h3 id="councilResponsibilities">
+                        <i class="fas fa-tasks" style="color: #FFA500;"></i>
+                        Council Responsibilities
+                    </h3>
+                    <div class="responsibilities-grid">
+                        <div class="responsibility-card">
+                            <div class="responsibility-icon" style="background: rgba(78, 205, 196, 0.1);">
+                                <i class="fas fa-money-check" style="color: #4ECDC4;"></i>
+                            </div>
+                            <div class="responsibility-content">
+                                <h4>Benefit Distribution</h4>
+                                <p id="responsibility1">Manage and oversee fair distribution of benefits to all community members</p>
+                            </div>
+                        </div>
+
+                        <div class="responsibility-card">
+                            <div class="responsibility-icon" style="background: rgba(150, 206, 180, 0.1);">
+                                <i class="fas fa-project-diagram" style="color: #96CEB4;"></i>
+                            </div>
+                            <div class="responsibility-content">
+                                <h4>Project Oversight</h4>
+                                <p id="responsibility2">Monitor and guide community project implementation</p>
+                            </div>
+                        </div>
+
+                        <div class="responsibility-card">
+                            <div class="responsibility-icon" style="background: rgba(255, 107, 107, 0.1);">
+                                <i class="fas fa-chart-line" style="color: #FF6B6B;"></i>
+                            </div>
+                            <div class="responsibility-content">
+                                <h4>Financial Transparency</h4>
+                                <p id="responsibility3">Ensure complete transparency in financial reporting and management</p>
+                            </div>
+                        </div>
+
+                        <div class="responsibility-card">
+                            <div class="responsibility-icon" style="background: rgba(255, 165, 0, 0.1);">
+                                <i class="fas fa-handshake" style="color: #FFA500;"></i>
+                            </div>
+                            <div class="responsibility-content">
+                                <h4>Community Representation</h4>
+                                <p id="responsibility4">Represent community interests in REDD+ platform meetings</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

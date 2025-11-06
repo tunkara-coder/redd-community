@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-language="english">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REDD+ Mangrove Portal - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="login-body">
+    <div id="loginPage" class="login-page active">
+        <div class="login-container">
+            <div class="login-card">
+                <!-- Login Header -->
+                <div class="login-header">
+                    <div class="logo-large">
+                        <i class="fas fa-tree"></i>
+                        <h1>REDD+ Mangrove Portal</h1>
+                    </div>
+                    <p class="login-subtitle" id="loginSubtitle">Community Platform</p>
+                </div>
+
+                <!-- Language Selection -->
+                <div class="language-section">
+                    <h3>Select Language</h3>
+                    <div class="language-grid">
+                        <button class="lang-option active lang-btn" data-lang="english">
+                            <i class="fas fa-globe"></i>
+                            English
+                        </button>
+                        <button class="lang-option lang-btn" data-lang="mandinka">
+                            <i class="fas fa-globe"></i>
+                            Mandinka
+                        </button>
+                        <button class="lang-option lang-btn" data-lang="wolof">
+                            <i class="fas fa-globe"></i>
+                            Wolof
+                        </button>
+                        <button class="lang-option lang-btn" data-lang="fulla">
+                            <i class="fas fa-globe"></i>
+                            Fula
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="username">
+                            <i class="fas fa-user"></i>
+                            Username
+                        </label>
+                        <input type="text" id="username" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="login-btn" id="loginButton">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span id="loginText">Sign In</span>
+                    </button>
+                </form>
+
+                <!-- Login Help -->
+                <div class="login-help">
+                    <div class="help-item">
+                        <i class="fas fa-info-circle"></i>
+                        <p id="helpText">Forgot your password? Contact your community administrator.</p>
+                    </div>
+                    <div class="help-item">
+                        <i class="fas fa-users"></i>
+                        <p>New user? Request access through your community council.</p>
+                    </div>
+                </div>
+
+                <!-- Project Overview -->
+                <div class="project-overview">
+                    <h4 id="projectOverviewTitle">Community Impact</h4>
+                    <p id="projectOverviewText">Supporting sustainable mangrove conservation and community development</p>
+                    <div class="project-highlights">
+                        <div class="highlight-stat">
+                            <i class="fas fa-tree" style="color: var(--primary-green);"></i>
+                            <span>5,000+ Hectares Protected</span>
+                        </div>
+                        <div class="highlight-stat">
+                            <i class="fas fa-users" style="color: var(--teal);"></i>
+                            <span>15 Communities</span>
+                        </div>
+                        <div class="highlight-stat">
+                            <i class="fas fa-hand-holding-usd" style="color: var(--orange);"></i>
+                            <span>$2.5M Distributed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
